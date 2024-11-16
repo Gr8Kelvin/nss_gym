@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+
+const String logo = "assets/images/Logo.png";
+const String google = "assets/images/Google.png";
+const String blue = "assets/images/bluetooth.png";
+const String bluetooth = "assets/images/blue.png";
+const String body1 = "assets/images/image1.png";
+const String metric = "assets/images/met.png";
+const String calories = "assets/images/calories.png";
+const String form = "assets/images/formtracking.png";
+const String goals = "assets/images/goals.png";
+const String tut = "assets/images/tut.png";
+const String bodyw = "assets/images/bodyweight.png";
+const String fire = "assets/images/flame.png";
+const String calender = "assets/images/calendar.png";
+const String whitefire = "assets/images/whitefire.png";
+const String pencil = "assets/images/Pencil1.png";
+const String search = "assets/images/search.png";
+const String cooldown = "assets/images/cooldown.png";
+const String mainicon = "assets/images/mainicon.png";
+const String warmup = "assets/images/warmup.png";
