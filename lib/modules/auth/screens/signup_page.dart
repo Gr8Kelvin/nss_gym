@@ -161,12 +161,12 @@ class _SignupPageState extends State<SignupPage>
                 ],
               ),
               Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    Form(
-                      key: _formKey,
-                      child: Column(
+                child: Form(
+                  key: _formKey,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
@@ -380,7 +380,7 @@ class _SignupPageState extends State<SignupPage>
                           const SizedBox(
                             height: 50,
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
                             height: 55,
                             width: double.infinity,
@@ -398,14 +398,16 @@ class _SignupPageState extends State<SignupPage>
                                 shadowColor: Colors.transparent,
                               ),
                               onPressed: () {
-                                _tabController
-                                    .animateTo(_tabController.index + 1);
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => const Homepage(),
-                                //   ),
-                                // );
+                                if (_formKey.currentState!.validate()) {
+                                  _tabController
+                                      .animateTo(_tabController.index + 1);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => const Homepage(),
+                                  //   ),
+                                  // );
+                                }
                               },
                               child: const Text(
                                 'Continue',
@@ -421,87 +423,37 @@ class _SignupPageState extends State<SignupPage>
                           // ),
                         ],
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Firstname',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  Container(
-                                    width: 160,
-                                    child: TextFormField(
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      cursorColor: Colors.white,
-                                      controller: email,
-                                      validator: (String? value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Firstname cannot be empty";
-                                        }
-
-                                        return null;
-                                      },
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: InputDecoration(
-                                        contentPadding: const EdgeInsets.only(
-                                            top: 10, left: 10),
-                                        hintText: 'E.g John',
-                                        hintStyle: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                            fontSize: 15),
-                                        filled: true,
-                                        fillColor: textfield,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
-                              Column(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text(
-                                      'Last name',
+                                      'Firstname',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     const SizedBox(
                                       height: 8,
                                     ),
-                                    SizedBox(
+                                    Container(
                                       width: 160,
                                       child: TextFormField(
                                         style: const TextStyle(
                                             color: Colors.white),
                                         cursorColor: Colors.white,
-                                        controller: email,
+                                        controller: firstname,
                                         validator: (String? value) {
                                           if (value == null || value.isEmpty) {
-                                            return "Lastname cannot be empty";
+                                            return "Firstname cannot be empty";
                                           }
 
                                           return null;
@@ -511,7 +463,7 @@ class _SignupPageState extends State<SignupPage>
                                         decoration: InputDecoration(
                                           contentPadding: const EdgeInsets.only(
                                               top: 10, left: 10),
-                                          hintText: 'E.g Appleased',
+                                          hintText: 'E.g John',
                                           hintStyle: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.white,
@@ -529,207 +481,263 @@ class _SignupPageState extends State<SignupPage>
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                  ]),
-                            ]),
-                        const Text(
-                          'Date of Birth',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        TextFormField(
-                          style: const TextStyle(color: Colors.white),
-                          cursorColor: Colors.white,
-                          controller: password,
-                          obscureText: obscureicon,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter a date";
-                            }
-
-                            return null;
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            prefixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.calendar_month,
-                                color: Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                            contentPadding:
-                                const EdgeInsets.only(top: 10, left: 10),
-                            hintText: 'Select a date',
-                            hintStyle: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                                fontSize: 15),
-                            filled: true,
-                            fillColor: textfield,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 13,
-                        ),
-                        const Text(
-                          'Location',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        TextFormField(
-                          style: const TextStyle(color: Colors.white),
-                          cursorColor: Colors.white,
-                          controller: password,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please choose a Location";
-                            }
-
-                            return null;
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            prefixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.location_on_rounded,
-                                color: Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.keyboard_arrow_down_sharp,
-                                color: Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                            contentPadding:
-                                const EdgeInsets.only(top: 10, left: 10),
-                            hintText: 'Select a location',
-                            hintStyle: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                                fontSize: 15),
-                            filled: true,
-                            fillColor: textfield,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 13,
-                        ),
-                        const Text(
-                          'City',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        TextFormField(
-                          style: const TextStyle(color: Colors.white),
-                          cursorColor: Colors.white,
-                          controller: password,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please choose a city";
-                            }
-
-                            return null;
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.keyboard_arrow_down_sharp,
-                                color: Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                            contentPadding:
-                                const EdgeInsets.only(top: 10, left: 10),
-                            hintText: 'Select a city in your location',
-                            hintStyle: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                                fontSize: 15),
-                            filled: true,
-                            fillColor: textfield,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 13,
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        const Spacer(),
-                        Container(
-                          height: 55,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            gradient: const LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [Sorange, Torange],
-                            ),
-                          ),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Homepage(),
+                                  ],
                                 ),
-                              );
+                                Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Last name',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      SizedBox(
+                                        width: 160,
+                                        child: TextFormField(
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          cursorColor: Colors.white,
+                                          controller: lastname,
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return "Lastname cannot be empty";
+                                            }
+
+                                            return null;
+                                          },
+                                          keyboardType:
+                                              TextInputType.emailAddress,
+                                          decoration: InputDecoration(
+                                            contentPadding:
+                                                const EdgeInsets.only(
+                                                    top: 10, left: 10),
+                                            hintText: 'E.g Appleased',
+                                            hintStyle: const TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                            filled: true,
+                                            fillColor: textfield,
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              borderSide: BorderSide.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ]),
+                              ]),
+                          const Text(
+                            'Date of Birth',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          TextFormField(
+                            style: const TextStyle(color: Colors.white),
+                            cursorColor: Colors.white,
+                            controller: dob,
+                            obscureText: obscureicon,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please enter a date";
+                              }
+
+                              return null;
                             },
-                            child: const Text(
-                              'Create your account',
-                              style: TextStyle(
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              prefixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.calendar_month,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
+                                  size: 32,
+                                ),
+                              ),
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
+                              ),
+                              contentPadding:
+                                  const EdgeInsets.only(top: 10, left: 10),
+                              hintText: 'Select a date',
+                              hintStyle: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontSize: 15),
+                              filled: true,
+                              fillColor: textfield,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide.none,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // Text(
-                    //   'stress',
-                    //   style: TextStyle(color: Colors.white),
-                    // ),
-                  ],
+                          const SizedBox(
+                            height: 13,
+                          ),
+                          const Text(
+                            'Location',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          TextFormField(
+                            style: const TextStyle(color: Colors.white),
+                            cursorColor: Colors.white,
+                            controller: location,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please choose a Location";
+                              }
+
+                              return null;
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              prefixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.location_on_rounded,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
+                              ),
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_sharp,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
+                              ),
+                              contentPadding:
+                                  const EdgeInsets.only(top: 10, left: 10),
+                              hintText: 'Select a location',
+                              hintStyle: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontSize: 15),
+                              filled: true,
+                              fillColor: textfield,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 13,
+                          ),
+                          const Text(
+                            'City',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          TextFormField(
+                            style: const TextStyle(color: Colors.white),
+                            cursorColor: Colors.white,
+                            controller: city,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please choose a city";
+                              }
+
+                              return null;
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_sharp,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
+                              ),
+                              contentPadding:
+                                  const EdgeInsets.only(top: 10, left: 10),
+                              hintText: 'Select a city in your location',
+                              hintStyle: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontSize: 15),
+                              filled: true,
+                              fillColor: textfield,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 13,
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          const Spacer(),
+                          Container(
+                            height: 55,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              gradient: const LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [Sorange, Torange],
+                              ),
+                            ),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const Homepage(),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Text(
+                                'Create your account',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // Text(
+                      //   'stress',
+                      //   style: TextStyle(color: Colors.white),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
               // const SizedBox(
