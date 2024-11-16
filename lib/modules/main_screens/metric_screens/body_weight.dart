@@ -150,13 +150,32 @@ class _BodyWeightPageState extends State<BodyWeightPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),
                               )),
-                          onPressed: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const LoginScreen(),
-                            //   ),
-                            // );
+                          onPressed: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              barrierColor: Colors.transparent,
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2101),
+                              helpText: 'Select date of birth',
+                              builder: (context, child) {
+                                return Theme(
+                                  data: Theme.of(context).copyWith(
+                                      colorScheme: const ColorScheme.dark(
+                                          primary: Sorange,
+                                          onPrimary: Torange,
+                                          onSurface: Torange),
+                                      textButtonTheme: TextButtonThemeData(
+                                        style: TextButton.styleFrom(
+                                            textStyle:
+                                                TextStyle(color: Sorange),
+                                            foregroundColor: Torange),
+                                      ),
+                                      dialogBackgroundColor: Colors.white),
+                                  child: child!,
+                                );
+                              },
+                            );
                           },
                           child: const Image(image: AssetImage(calender))),
                     ),

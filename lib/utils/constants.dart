@@ -10,11 +10,22 @@ TextEditingController lastname = TextEditingController();
 TextEditingController dob = TextEditingController();
 TextEditingController location = TextEditingController();
 TextEditingController city = TextEditingController();
+TextEditingController calor = TextEditingController();
+TextEditingController duration = TextEditingController();
+TextEditingController textreps = TextEditingController();
+TextEditingController textsets = TextEditingController();
+TextEditingController textexercise = TextEditingController();
+
+int durationtime = 30;
+int repscard = 115;
+int setscard = 15;
+int exercisecard = 5;
 
 int reps = 7;
 int sets = 10;
 int weight = 150;
 int resttimer = 80;
+int cal = 3600;
 
 bool obscureicon = false;
 bool warmuppage = true;

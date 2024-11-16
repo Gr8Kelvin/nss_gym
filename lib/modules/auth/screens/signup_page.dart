@@ -606,6 +606,13 @@ class _SignupPageState extends State<SignupPage>
                                   if (value == null || value.isEmpty) {
                                     return "Please enter a date";
                                   }
+                                  final dateRegExp = RegExp(
+                                    r'^([0-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/(\d{4})$',
+                                  );
+
+                                  if (!dateRegExp.hasMatch(value)) {
+                                    return "Please input a valid date (dd/MM/yyyy)";
+                                  }
 
                                   return null;
                                 },
@@ -701,9 +708,7 @@ class _SignupPageState extends State<SignupPage>
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
                                   prefixIcon: IconButton(
-                                    onPressed: () async {
-                                      
-                                    },
+                                    onPressed: () async {},
                                     icon: const Icon(
                                       Icons.location_on_rounded,
                                       color: Colors.white,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nss_gym/utils/assets_path.dart';
 import 'package:nss_gym/utils/constants.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -81,17 +82,17 @@ class _CaloriesPageState extends State<CaloriesPage> {
                     lineWidth: 15.0,
                     circularStrokeCap: CircularStrokeCap.round,
                     maskFilter: const MaskFilter.blur(BlurStyle.solid, 8),
-                    center: const Column(
+                    center: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "3,600",
-                          style: TextStyle(
+                          "${NumberFormat('#,###').format(cal)}",
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 28,
                               fontWeight: FontWeight.bold),
                         ),
-                        Text(
+                        const Text(
                           "cal",
                           style: TextStyle(color: Colors.white),
                         ),
@@ -176,6 +177,8 @@ class _CaloriesPageState extends State<CaloriesPage> {
                       height: 25,
                       width: 140,
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: calor,
                         style: const TextStyle(
                           color: Colors.white,
                         ),
@@ -194,7 +197,16 @@ class _CaloriesPageState extends State<CaloriesPage> {
                     ),
                     const Spacer(),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          try {
+                            int newcalories = int.parse(calor.text);
+                            cal += newcalories;
+                          } catch (e) {
+                            print('Invalid input');
+                          }
+                        });
+                      },
                       icon: const Icon(
                         Icons.add,
                         color: Sorange,

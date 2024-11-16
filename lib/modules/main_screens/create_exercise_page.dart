@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nss_gym/modules/main_screens/metric_screens/body_weight.dart';
 import 'package:nss_gym/utils/assets_path.dart';
 import 'package:nss_gym/utils/constants.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class CreateExercisePage extends StatefulWidget {
   const CreateExercisePage({super.key});
@@ -250,7 +251,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                       Text(
                         'CoolDown',
                         style: TextStyle(
-                            color: selectedbuttonindex == 2
+                            color: selectedbuttonindex == 3
                                 ? Sorange
                                 : Colors.white,
                             fontSize: 12),
@@ -695,7 +696,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                           );
                         },
                         child: const Text(
-                          'Create new plan',
+                          'Create workout',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -716,7 +717,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                       height: 29,
                     ),
                     const Text(
-                      'Regular exercise',
+                      'Super Set (1 of 5)',
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
                     const SizedBox(
@@ -753,17 +754,17 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                     const Row(
                       children: [
                         Text(
-                          'Set Goal',
+                          'Exercise duration',
                           style: TextStyle(color: Colors.white),
                         ),
                         SizedBox(
                           width: 5,
                         ),
-                        Icon(
-                          Icons.info,
-                          size: 15,
-                          color: Colors.grey,
-                        )
+                        // Icon(
+                        //   Icons.info,
+                        //   size: 15,
+                        //   color: Colors.grey,
+                        // )
                       ],
                     ),
                     const SizedBox(
@@ -1156,14 +1157,1352 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
               Visibility(
                 visible: cooldownpage,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 19,
+                    const SizedBox(
+                      height: 29,
                     ),
-                    Text(
-                      'another exercise',
+                    const Text(
+                      'Exercise',
                       style: TextStyle(color: Colors.white, fontSize: 17),
-                    )
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    SizedBox(
+                      height: 38,
+                      width: double.infinity,
+                      child: TextFormField(
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        cursorColor: Colors.white,
+                        cursorHeight: 12,
+                        cursorWidth: 1,
+                        decoration: InputDecoration(
+                          hintText: 'Enter a title for the exercise',
+                          hintStyle: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 13),
+                          fillColor: textfield,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 8),
+                      height: 102,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: const RadialGradient(
+                          center: Alignment.centerRight,
+                          radius: 0.9,
+                          colors: [Forange, Pblack],
+                          stops: [
+                            -3.0,
+                            0.7,
+                          ],
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            'Push ups',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24),
+                          ),
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Duration:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$durationtime minutes',
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Reps:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$resttimer',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Sets:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$setscard',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Exercise:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$exercisecard',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        scrollable: true,
+                                        backgroundColor: Tblack,
+                                        actions: [
+                                          Container(
+                                            height: 45,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              gradient: const LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [Sorange, Torange],
+                                              ),
+                                            ),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                shadowColor: Colors.transparent,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  try {
+                                                    durationtime ==
+                                                        int.parse(
+                                                            duration.text);
+                                                    repscard ==
+                                                        int.parse(
+                                                            textreps.text);
+                                                    setscard ==
+                                                        int.parse(
+                                                            textsets.text);
+                                                    exercisecard ==
+                                                        int.parse(
+                                                            textexercise.text);
+                                                  } catch (e) {
+                                                    print('Invalid input');
+                                                  }
+                                                });
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                'Confim',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                        title: const Center(
+                                          child: Text(
+                                            'Edit Plan',
+                                            style: TextStyle(color: Sorange),
+                                          ),
+                                        ),
+                                        content: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'Duration',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: duration,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Reps',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textreps,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Sets',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textsets,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Exercise',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textexercise,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Text(
+                                  'Edit plan',
+                                  style:
+                                      TextStyle(color: Sorange, fontSize: 16),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 8),
+                      height: 102,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: const RadialGradient(
+                          center: Alignment.centerRight,
+                          radius: 0.9,
+                          colors: [Forange, Pblack],
+                          stops: [
+                            -3.0,
+                            0.7,
+                          ],
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            'Push ups',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24),
+                          ),
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Duration:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$durationtime minutes',
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Reps:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$resttimer',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Sets:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$setscard',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Exercise:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$exercisecard',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        scrollable: true,
+                                        backgroundColor: Tblack,
+                                        actions: [
+                                          Container(
+                                            height: 45,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              gradient: const LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [Sorange, Torange],
+                                              ),
+                                            ),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                shadowColor: Colors.transparent,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  try {
+                                                    durationtime ==
+                                                        int.parse(
+                                                            duration.text);
+                                                    repscard ==
+                                                        int.parse(
+                                                            textreps.text);
+                                                    setscard ==
+                                                        int.parse(
+                                                            textsets.text);
+                                                    exercisecard ==
+                                                        int.parse(
+                                                            textexercise.text);
+                                                  } catch (e) {
+                                                    print('Invalid input');
+                                                  }
+                                                });
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                'Confim',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                        title: const Center(
+                                          child: Text(
+                                            'Edit Plan',
+                                            style: TextStyle(color: Sorange),
+                                          ),
+                                        ),
+                                        content: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'Duration',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: duration,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Reps',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textreps,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Sets',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textsets,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Exercise',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textexercise,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Text(
+                                  'Edit plan',
+                                  style:
+                                      TextStyle(color: Sorange, fontSize: 16),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 8),
+                      height: 102,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: const RadialGradient(
+                          center: Alignment.centerRight,
+                          radius: 0.9,
+                          colors: [Forange, Pblack],
+                          stops: [
+                            -3.0,
+                            0.7,
+                          ],
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            'Push ups',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24),
+                          ),
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Duration:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$durationtime minutes',
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Reps:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$resttimer',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Sets:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$setscard',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Exercise:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$exercisecard',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        scrollable: true,
+                                        backgroundColor: Tblack,
+                                        actions: [
+                                          Container(
+                                            height: 45,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              gradient: const LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [Sorange, Torange],
+                                              ),
+                                            ),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                shadowColor: Colors.transparent,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  try {
+                                                    durationtime ==
+                                                        int.parse(
+                                                            duration.text);
+                                                    repscard ==
+                                                        int.parse(
+                                                            textreps.text);
+                                                    setscard ==
+                                                        int.parse(
+                                                            textsets.text);
+                                                    exercisecard ==
+                                                        int.parse(
+                                                            textexercise.text);
+                                                  } catch (e) {
+                                                    print('Invalid input');
+                                                  }
+                                                });
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                'Confim',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                        title: const Center(
+                                          child: Text(
+                                            'Edit Plan',
+                                            style: TextStyle(color: Sorange),
+                                          ),
+                                        ),
+                                        content: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'Duration',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: duration,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Reps',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textreps,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Sets',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textsets,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Exercise',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textexercise,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Text(
+                                  'Edit plan',
+                                  style:
+                                      TextStyle(color: Sorange, fontSize: 16),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 8),
+                      height: 102,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: const RadialGradient(
+                          center: Alignment.centerRight,
+                          radius: 0.9,
+                          colors: [Forange, Pblack],
+                          stops: [
+                            -3.0,
+                            0.7,
+                          ],
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            'Push ups',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24),
+                          ),
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Duration:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$durationtime minutes',
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Reps:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$resttimer',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Sets:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$setscard',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Exercise:',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  Text(
+                                    '$exercisecard',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        scrollable: true,
+                                        backgroundColor: Tblack,
+                                        actions: [
+                                          Container(
+                                            height: 45,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              gradient: const LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [Sorange, Torange],
+                                              ),
+                                            ),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                shadowColor: Colors.transparent,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  try {
+                                                    durationtime ==
+                                                        int.parse(
+                                                            duration.text);
+                                                    repscard ==
+                                                        int.parse(
+                                                            textreps.text);
+                                                    setscard ==
+                                                        int.parse(
+                                                            textsets.text);
+                                                    exercisecard ==
+                                                        int.parse(
+                                                            textexercise.text);
+                                                  } catch (e) {
+                                                    print('Invalid input');
+                                                  }
+                                                });
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                'Confim',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                        title: const Center(
+                                          child: Text(
+                                            'Edit Plan',
+                                            style: TextStyle(color: Sorange),
+                                          ),
+                                        ),
+                                        content: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'Duration',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: duration,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Reps',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textreps,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Sets',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textsets,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 18,
+                                            ),
+                                            const Text(
+                                              'Exercise',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextFormField(
+                                              controller: textexercise,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                              cursorColor: Colors.white,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        top: 10, left: 10),
+                                                filled: true,
+                                                fillColor: Colors.grey[900],
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Text(
+                                  'Edit plan',
+                                  style:
+                                      TextStyle(color: Sorange, fontSize: 16),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
