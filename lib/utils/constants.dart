@@ -11,11 +11,17 @@ TextEditingController dob = TextEditingController();
 TextEditingController location = TextEditingController();
 TextEditingController city = TextEditingController();
 
+int reps = 7;
+int sets = 10;
+int weight = 150;
+int resttimer = 80;
 
 bool obscureicon = false;
 bool warmuppage = true;
 bool mainiconpage = false;
 bool cooldownpage = false;
+
+int selectedbuttonindex = 1;
 
 const Color Porange = Color(0xFFF06500);
 const Color Sorange = Color(0xFFFFA05C);
