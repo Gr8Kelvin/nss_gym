@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:nss_gym/modules/auth/screens/signup_page.dart';
 import 'package:nss_gym/modules/loginmodel.dart';
@@ -8,6 +10,25 @@ import 'package:nss_gym/modules/main_screens/homepage.dart';
 import 'package:nss_gym/utils/assets_path.dart';
 import 'package:nss_gym/utils/constants.dart';
 import 'package:http/http.dart' as http;
+
+Future<dynamic> signInWithGoogle() async {
+  try {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  } on Exception catch (e) {
+    // TODO
+    print('exception->$e');
+  }
+}
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +38,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  ValueNotifier userCredential = ValueNotifier('');
+
   final _formKey = GlobalKey<FormState>();
   Future<dynamic> postSignData(String emailaddress, String password) async {
     Map<String, String> header = {
@@ -235,21 +258,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           shadowColor: Colors.transparent,
                         ),
                         onPressed: () async {
-                          // if (_formKey.currentState!.validate()) {
-                          //   String responseCode = await postSignData(
-                          //       email.text.trim(), password.text.trim());
-                          //   if (responseCode == "000") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Homepage(),
-                            ),
-                          );
-                          //   } else {
-                          //     print(
-                          //         "Login failed with responce code: $responseCode");
-                          //   }
-                          // }
+                          if (_formKey.currentState!.validate()) {
+                            await postSignData(
+                                    email.text.trim(), password.text.trim())
+                                .then((val) {
+                              Logger().d("This is the response $val");
+
+// if();
+                            });
+                            // if (responseCode == "000") {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const Homepage(),
+                            //   ),
+                            // );
+                            //   } else {
+                            //     print(
+                            //         "Login failed with responce code: $responseCode");
+                            //   }
+                          }
                         },
                         child: const Text(
                           'Login',
@@ -336,12 +364,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           //   ),
                           // );
                         },
-                        child: const Text(
-                          'Apple ID',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Image(image: AssetImage('assets/images/')),
+                            const Text(
+                              'Apple ID',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -376,20 +410,35 @@ class _LoginScreenState extends State<LoginScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             )),
-                        onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const LoginScreen(),
-                          //   ),
-                          // );
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          userCredential.value = await signInWithGoogle();
+                          if (userCredential.value != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                          }
                         },
-                        child: const Text(
-                          'GOOGLE',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image(
+                              image: AssetImage(google),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'GOOGLE',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          ],
                         ),
                       ),
                     ),

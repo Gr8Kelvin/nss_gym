@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "871150867786",
+    "project_id": "nssgym-c6b7e",
+    "storage_bucket": "nssgym-c6b7e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871150867786:android:011c8d45e4290451989db3",
+        "android_client_info": {
+          "package_name": "com.example.nss_gym"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWnd6uEEf_YXFcIh5UJbKlOT4h_AReIu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

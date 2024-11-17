@@ -1340,18 +1340,14 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                                               onPressed: () {
                                                 setState(() {
                                                   try {
-                                                    durationtime ==
-                                                        int.parse(
-                                                            duration.text);
-                                                    repscard ==
-                                                        int.parse(
-                                                            textreps.text);
-                                                    setscard ==
-                                                        int.parse(
-                                                            textsets.text);
-                                                    exercisecard ==
-                                                        int.parse(
-                                                            textexercise.text);
+                                                    durationtime = int.parse(
+                                                        duration.text);
+                                                    repscard = int.parse(
+                                                        textreps.text);
+                                                    setscard = int.parse(
+                                                        textsets.text);
+                                                    exercisecard = int.parse(
+                                                        textexercise.text);
                                                   } catch (e) {
                                                     print('Invalid input');
                                                   }
