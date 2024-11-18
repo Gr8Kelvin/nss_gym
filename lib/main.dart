@@ -4,6 +4,8 @@ import 'package:nss_gym/firebase_options.dart';
 import 'package:nss_gym/modules/auth/screens/splash_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nss_gym/state/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,14 +28,16 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              useMaterial3: true,
-            ),
-            home: const SplashPage(),
-          );
+          return ChangeNotifierProvider(
+              create: (context) => AuthenticationProvider(),
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  useMaterial3: true,
+                ),
+                home: const SplashPage(),
+              ));
         });
   }
 }

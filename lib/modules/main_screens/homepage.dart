@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:nss_gym/modules/main_screens/create_exercise_page.dart';
 import 'package:nss_gym/modules/main_screens/metricpage.dart';
 import 'package:nss_gym/utils/assets_path.dart';
@@ -13,6 +15,45 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  // FlutterBluePlus flutterBlue = FlutterBluePlus();
+
+  // voidConnectToDevice(BluetoothDevice device) async {
+  //   await.device.connect;
+  // }
+
+  final FlutterBluePlus flutterBlue = FlutterBluePlus();
+  List<ScanResult> scanResults = [];
+  bool isScanning = false;
+
+  void startScan() async {
+    setState(() {
+      isScanning = true;
+    });
+    FlutterBluePlus.startScan(timeout: const Duration(seconds: 5));
+    FlutterBluePlus.scanResults.listen((Result) {
+      setState(() {
+        scanResults = Result;
+      });
+    }, onDone: () {
+      setState(() {
+        isScanning = false;
+      });
+    });
+  }
+
+  Future<void> connectToDevice(BluetoothDevice device) async {
+    try {
+      await device.connect();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Connected to ${device.name}')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to connect: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +63,10 @@ class _HomepageState extends State<Homepage> {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: GestureDetector(
-                onTap: () {}, child: const Image(image: AssetImage(bluetooth))),
+                onTap: () {},
+                child: const Image(
+                  image: AssetImage(bluetooth),
+                )),
           ),
         ],
         title: Container(
@@ -113,8 +157,8 @@ class _HomepageState extends State<Homepage> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20),
                               ),
-                              const Text(
-                                'Nick!',
+                              Text(
+                                '$usernname!',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,

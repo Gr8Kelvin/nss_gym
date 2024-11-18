@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Signin {
   String? responseCode;
   String? responseMessage;
@@ -23,6 +29,7 @@ class Signin {
 }
 
 class Data {
+  
   int? id;
   String? username;
   String? email;
@@ -46,3 +53,5 @@ class Data {
     return data;
   }
 }
+
+

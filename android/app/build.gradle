@@ -8,18 +8,7 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
-// dependencies {
-//    //Firebase
-//    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
-//    implementation("com.google.firebase:firebase-auth-ktx")
 
-//    //Android Credential
-//    implementation("com.google.android.gms:play-services-auth:21.2.0")
-//    implementation("androidx.credentials:credentials:1.3.0-beta02")
-
-//    //Viewmodel
-//    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
-// }
 
 android {
     namespace = "com.example.nss_gym"

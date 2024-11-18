@@ -33,6 +33,7 @@ class _SplashPageState extends State<SplashPage> {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             colors: [Pblack, Sblack],
+            // colors: [bblue, Sblack],
           ),
         ),
         child: Center(

@@ -232,7 +232,7 @@ class _SignupPageState extends State<SignupPage>
                                 style: const TextStyle(color: Colors.white),
                                 cursorColor: Colors.white,
                                 controller: email,
-                                obscureText: obscureicon,
+                                // obscureText: obscureicon,
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
                                     return "Email cannot be empty";

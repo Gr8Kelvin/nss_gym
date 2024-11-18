@@ -16,6 +16,8 @@ TextEditingController textreps = TextEditingController();
 TextEditingController textsets = TextEditingController();
 TextEditingController textexercise = TextEditingController();
 
+String? usernname = 'Nick';
+
 int durationtime = 30;
 int repscard = 115;
 int setscard = 15;
@@ -44,6 +46,9 @@ const Color Tblack = Color(0xFF161512);
 Color textfield = Colors.grey[700]!;
 const Color Pcard = Color(0xFF342519);
 const Color Scard = Color(0xFFEA8945);
+const Color bblue = Color(0xFF2196F3);
+
+
 // const Color Porange = Color(0xFFF06500);
 // const Color Porange = Color(0xFFF06500);
 // const Color Porange = Color(0xFFF06500);

@@ -11,6 +11,7 @@ import 'package:nss_gym/modules/main_screens/homepage.dart';
 import 'package:nss_gym/utils/assets_path.dart';
 import 'package:nss_gym/utils/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,6 +21,55 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //  void _loadSavedValue() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     usernname = prefs.getString(_key) ?? ""; // Using ?? "" to handle null case
+  //   });
+  // }
+
+  Future<dynamic> postSignData(String emailaddress, String password) async {
+    setState(() {
+      isloading = true;
+    });
+
+    Map<String, String> header = {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    };
+
+    Map<String, String> loginData = {
+      "email": emailaddress,
+      "password": password,
+    };
+    final response = await http.post(
+        headers: header,
+        Uri.parse('https://56ce-41-66-243-226.ngrok-free.app/user/login'),
+        body: jsonEncode(loginData));
+
+    Logger().d(jsonDecode(response.body));
+
+    final responseData = jsonDecode(response.body);
+    String? fetchedusername = responseData['data']['username'];
+    Logger().d(fetchedusername);
+
+    if (fetchedusername != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('username', fetchedusername);
+    }
+
+    setState(() {
+      usernname = fetchedusername;
+    });
+
+    return response;
+  }
+
+  Future<String?> getCachedUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('username');
+  }
+
   Future<dynamic> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -61,23 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isloading = false;
 
   final _formKey = GlobalKey<FormState>();
-  Future<dynamic> postSignData(String emailaddress, String password) async {
-    Map<String, String> header = {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    };
-
-    Map<String, String> loginData = {
-      "email": emailaddress,
-      "password": password,
-    };
-    final response = await http.post(
-        headers: header,
-        Uri.parse('https://53c2-196-61-37-18.ngrok-free.app/user/login'),
-        body: jsonEncode(loginData));
-
-    Logger().d(response.body);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,11 +152,23 @@ class _LoginScreenState extends State<LoginScreen> {
         child: isloading
             ? Container(
                 child: Center(
-                child: LoadingAnimationWidget.discreteCircle(
-                    color: Colors.white,
-                    secondRingColor: Tblack,
-                    thirdRingColor: Sorange,
-                    size: 100),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Setting up your Account',
+                      style: TextStyle(color: Colors.white, fontSize: 32),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    LoadingAnimationWidget.discreteCircle(
+                        color: Colors.white,
+                        secondRingColor: Torange,
+                        thirdRingColor: Sorange,
+                        size: 100),
+                  ],
+                ),
               ))
             : Form(
                 key: _formKey,
@@ -291,21 +336,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                   await postSignData(email.text.trim(),
                                           password.text.trim())
                                       .then((val) {
-                                    Logger().d("This is the response $val");
-
-// if();
+                                    final decoderesponse = jsonDecode(val.body);
+                                    Logger().d(
+                                        "This is the response $decoderesponse.");
+                                    String responseCode =
+                                        decoderesponse["responseCode"];
+                                    if (responseCode == "000") {
+                                      setState(() {
+                                        isloading = false;
+                                      });
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Homepage(),
+                                        ),
+                                      );
+                                    } else {
+                                      print(
+                                          "Login failed with responce code: $responseCode");
+                                    }
                                   });
-                                  // if (responseCode == "000") {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => const Homepage(),
-                                  //   ),
-                                  // );
-                                  //   } else {
-                                  //     print(
-                                  //         "Login failed with responce code: $responseCode");
-                                  //   }
                                 }
                               },
                               child: const Text(
@@ -448,6 +499,33 @@ class _LoginScreenState extends State<LoginScreen> {
                                     await signInWithGoogle();
                                 Logger().d('${userCredential}');
                                 if (userCredential != null) {
+                                  final Map<String, dynamic>? profile =
+                                      userCredential
+                                          .additionalUserInfo?.profile;
+                                  String? givenName = profile?['given_name'];
+
+                                  Logger().d("Given Name: $givenName");
+
+                                  if (givenName != null) {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.setString(
+                                        'given_name', givenName);
+                                  }
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  givenName = prefs.getString('given_name');
+
+                                  setState(() {
+                                    usernname = givenName;
+                                  });
+
+                                  Future<String?> getCachedUsername() async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    return prefs.getString('username');
+                                  }
+
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
